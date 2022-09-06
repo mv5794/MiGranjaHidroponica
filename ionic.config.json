@@ -1,0 +1,7 @@
+{
+  "name": "MiGranjaHidroponica",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
