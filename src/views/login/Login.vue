@@ -6,18 +6,19 @@
       </div>
     </ion-card-header>
 
-    <ion-card-content class="content-input">
+    <ion-card-content class="content-input" size-md="3">
       <ion-input class="email-txt" :value="username" color="light" type="email" inputmode="email" clear-input
-        placeholder="email" @ionInput="username = $event.target.value" />
+        placeholder="Email" @ionInput="username = $event.target.value" />
       <br />
       <ion-input class="pass-txt" :value="password" color="light" type="password" inputmode="password"
         placeholder="Password" @ionInput="password = $event.target.value" />
     </ion-card-content>
 
-    <button @click="login" class="btn-ingresar ion-activatable ripple-parent">
-      Ingresar
-      <ion-ripple-effect></ion-ripple-effect>
-    </button>
+<!--    <button @click="login" class="btn-ingresar">-->
+<!--      Ingresar-->
+<!--      <ion-ripple-effect></ion-ripple-effect>-->
+<!--    </button>-->
+    <ion-button color="warning" class="btn-ingresar "  size="small" @click="login">Ingresar</ion-button>
   </ion-card>
 </template>
 
@@ -101,5 +102,8 @@ watch(username, (act) => {
   border-radius: 20px;
   height: 200px;
   object-fit: contain;
+}
+@media (min-width: 800px) {
+
 }
 </style>

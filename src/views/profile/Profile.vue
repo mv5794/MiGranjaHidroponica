@@ -100,26 +100,9 @@ const changePasword = async (newPass: string) => {
   min-height: 10vh;
   margin-top: 5%;
 }
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 20%;
-  margin-bottom: 1rem;
-}
-
 .actions-row {
   margin-top: 100px;
   display: flex;
   justify-content: center;
-}
-
-.pass-txt {
-  background-color: rgb(24, 26, 26) !important;
-  border-radius: 20px;
-  min-height: 60px !important;
-  max-width: 80%;
-  margin-left: 10%;
-  margin-top: 1rem;
 }
 </style>
