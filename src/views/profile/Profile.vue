@@ -6,31 +6,10 @@
     <ion-img class="profile-img" :src="profileImage"></ion-img>
     <div>
       <ion-col class="actions-row">
-        <ion-button color="warning" @click="openModal"
-          >Cambiar contraseña</ion-button
-        >
+        <ion-button color="warning" @click="openModal">Cambiar contraseña</ion-button>
         <Teleport to="body">
           <div v-if="open" class="modal">
-            <ion-item color="black" >
-              <ion-label> Cambiar contraseña </ion-label>
-            </ion-item>
-            <ion-input 
-              class="pass-txt"
-              :value="newPassword"
-              color="light"
-              type="password"
-              inputmode="password"
-              placeholder="Password"
-              @ionInput="newPassword = $event.target.value"
-            />
-            <div class="modal-actions">
-              <ion-button :disabled='newPassword.length < 8' @click="changePasword" color="success"
-                >Cambiar</ion-button
-              >
-              <ion-button @click="open = false" color="danger"
-                >Cancelar</ion-button
-              >
-            </div>
+          <ChangePasswordTelport  @change-pasword="changePasword"  @cancel-option="cancelOption" />
           </div>
         </Teleport>
       </ion-col>
@@ -38,7 +17,7 @@
   </ion-grid>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { ref, Ref } from "vue";
 import {
   IonCol,
@@ -51,52 +30,40 @@ import {
   IonImg,
   toastController,
 } from "@ionic/vue";
+import ChangePasswordTelport from "./components/ChangePasswordTelport.vue";
+import ChangePasswordTelport1 from "./components/ChangePasswordTelport.vue";
 
-export default {
-  name: "profile-view",
-  components: {
-    IonCol,
-    IonGrid,
-    IonItem,
-    IonLabel,
-    IonRow,
-    IonImg,
-    IonButton,
-    IonInput,
-  },
-  setup() {
-    const open = ref(false);
-    const profileImage =
-      "https://media.istockphoto.com/photos/headshot-portrait-of-smiling-ethnic-businessman-in-office-picture-id1300512215?b=1&k=20&m=1300512215&s=170667a&w=0&h=LsZL_-vvAHB2A2sNLHu9Vpoib_3aLLkRamveVW3AGeQ=";
 
-    const openModal = () => {
-      console.log("pepe");
-      open.value = true;
-    };
 
-    const newPassword: Ref<string> = ref("");
+const open = ref(false);
+const profileImage =
+  "https://media.istockphoto.com/photos/headshot-portrait-of-smiling-ethnic-businessman-in-office-picture-id1300512215?b=1&k=20&m=1300512215&s=170667a&w=0&h=LsZL_-vvAHB2A2sNLHu9Vpoib_3aLLkRamveVW3AGeQ=";
 
-    const changePasword = async () => {
-      //TODO: implement profile controller
-      console.log("New password is :", newPassword.value);
-      const toast = await toastController.create({
-        message: "Contraseña cambiada correctamente",
-        duration: 1500,
-        color: 'success'
-      });
-      await toast.present();
-      open.value = false;
-    };
-
-    return {
-      profileImage,
-      open,
-      openModal,
-      changePasword,
-      newPassword,
-    };
-  },
+const cancelOption = () => {
+  open.value = false;
+}
+const openModal = () => {
+  console.log("pepe");
+  open.value = true;
 };
+
+const newPassword: Ref<string> = ref("");
+
+const changePasword = async (newPass: string) => {
+  console.log('PEP8888ITOO', newPass);
+  //TODO: implement profile controller
+  console.log("New password is :", newPassword.value);
+  const toast = await toastController.create({
+    message: "Contraseña cambiada correctamente",
+    duration: 1500,
+    color: 'success'
+  });
+  await toast.present();
+  open.value = false;
+};
+
+
+
 </script>
 
 <style scoped>
@@ -106,6 +73,7 @@ export default {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
+
 .profile-img {
   max-width: 200px;
   max-height: 200px;
@@ -118,6 +86,7 @@ export default {
   z-index: 1;
   top: 150px;
 }
+
 .modal {
   position: fixed;
   z-index: 99999999;
@@ -131,17 +100,20 @@ export default {
   min-height: 10vh;
   margin-top: 5%;
 }
+
 .modal-actions {
   display: flex;
   justify-content: center;
   margin-top: 20%;
   margin-bottom: 1rem;
 }
+
 .actions-row {
   margin-top: 100px;
   display: flex;
   justify-content: center;
 }
+
 .pass-txt {
   background-color: rgb(24, 26, 26) !important;
   border-radius: 20px;
