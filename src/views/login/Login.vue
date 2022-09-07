@@ -104,7 +104,7 @@ export default {
   left: 1.5%;
   background-color: rgb(24, 26, 26) !important;
   bottom: 10%;
-  min-height: 60px;
+  min-height: 50px;
   color: aliceblue;
   font-size: x-large;
   font-family: "Courier New", Courier, monospace;
