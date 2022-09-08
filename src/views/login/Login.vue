@@ -2,23 +2,23 @@
   <ion-card class="card-login">
     <ion-card-header>
       <div class="login-txt-container">
-        <img class="logo-img" src="../../../public/assets/logo.png"  alt="logo"/>
+        <img class="logo-img" src="../../../public/assets/logo.png" alt="logo"/>
       </div>
     </ion-card-header>
 
     <ion-card-content class="content-input" size-md="3">
-      <ion-input class="email-txt" :value="username" color="light" type="email" inputmode="email" clear-input
-        placeholder="Email" @ionInput="username = $event.target.value" />
-      <br />
-      <ion-input class="pass-txt" :value="password" color="light" type="password" inputmode="password"
-        placeholder="Password" @ionInput="password = $event.target.value" />
+      <ion-input class="email-txt" :value="login.email" color="light" type="email" inputmode="email" clear-input
+                 placeholder="Email" @ionInput="login.m_email = $event.target.value"/>
+      <br/>
+      <ion-input class="pass-txt" :value="login.password" color="light" type="password" inputmode="password"
+                 placeholder="Password" @ionInput="login.password = $event.target.value"/>
     </ion-card-content>
 
-<!--    <button @click="login" class="btn-ingresar">-->
-<!--      Ingresar-->
-<!--      <ion-ripple-effect></ion-ripple-effect>-->
-<!--    </button>-->
-    <ion-button color="warning" class="btn-ingresar "  size="small" @click="login">Ingresar</ion-button>
+    <!--    <button @click="login" class="btn-ingresar">-->
+    <!--      Ingresar-->
+    <!--      <ion-ripple-effect></ion-ripple-effect>-->
+    <!--    </button>-->
+    <ion-button color="warning" class="btn-ingresar " size="small" @click="doLogin">Ingresar</ion-button>
   </ion-card>
 </template>
 
@@ -29,20 +29,47 @@ import {
   IonCardHeader,
   IonRippleEffect,
 } from "@ionic/vue";
-import { ref, Ref, watch } from "vue";
-import loginController from "./login";
+import {reactive, ref, Ref, watch} from "vue";
+import loginController, {LoginController} from "./login";
+import {Controller} from "@/Controller";
+import {injectStrict} from "@/utils/injections";
+import router from "@/router";
 
-
-const username: Ref<string> = ref("");
-const password: Ref<string> = ref("");
+const app: Controller = injectStrict("appController");
+const loginForm: Ref<any> = ref(null);
 const logoPath: string = "../../../resources/logo.png";
-const login = async () => {
-  loginController.doLogin(username.value, password.value);
+const login: LoginController = reactive(new LoginController());
+const wrongCredentials: Ref<boolean> = ref(false);
+
+
+const doLogin = async () => {
+  loginForm.value.validate().then(async (success: boolean) => {
+    if (success) {
+      let succesFullLogin: boolean = false;
+      if (login.email !== null && login.password !== null) {
+        succesFullLogin = await handle(
+            app.user.doLogin({
+              email: login.email,
+              password: login.password
+            })
+        );
+      }
+      wrongCredentials.value = !succesFullLogin;
+      await router.push("/");
+    } else {
+      console.log("oh no, user has filled in at least one invalid value");
+    }
+  })
 };
 
-watch(username, (act) => {
-  console.log("aaaaa", act);
-});
+const handle = (promise: any) => {
+  return promise
+      .then((data: any) => [data, undefined])
+      .catch((error: any) => {
+        Promise.resolve([undefined, error]);
+        wrongCredentials.value = true;
+      });
+}
 
 
 </script>
@@ -103,6 +130,7 @@ watch(username, (act) => {
   height: 200px;
   object-fit: contain;
 }
+
 @media (min-width: 800px) {
 
 }
