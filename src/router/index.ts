@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
 import Login from "@/views/login/Login.vue";
 
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -39,6 +40,22 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profile',
     name:'Profile',
     component: () => import ('@/views/profile/Profile.vue')
+  },
+  {
+    path: '/historic/',
+    name:'Historic',
+    component: () => import ('@/views/historic/Historic.vue'),
+    children: [
+      {
+        path: 'temperature',
+        component:() => import('@/views/historic/components/temperatureChart.vue')
+      },
+      {
+        path: 'ph',
+        component:() => import('@/views/historic/components/PH.vue')
+      }
+
+    ]
   }
 ]
 
