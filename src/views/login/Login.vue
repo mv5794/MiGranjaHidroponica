@@ -7,7 +7,7 @@
     </ion-card-header>
 
     <ion-card-content class="content-input" size-md="3">
-      <ion-input class="email-txt" :value="login.email" color="light" type="email" inputmode="email" clear-input
+      <ion-input class="email-txt"  :value="login.email" color="light" type="email" inputmode="email" clear-input
                  placeholder="Email" @ionInput="login.m_email = $event.target.value"/>
       <br/>
       <ion-input class="pass-txt" :value="login.password" color="light" type="password" inputmode="password"
@@ -18,24 +18,21 @@
     <!--      Ingresar-->
     <!--      <ion-ripple-effect></ion-ripple-effect>-->
     <!--    </button>-->
-    <ion-button color="warning" class="btn-ingresar " size="small" @click="doLogin">Ingresar</ion-button>
+    <div style="display: flex; justify-content: center">
+      <ion-button color="warning" class="btn-ingresar" expand="block" size="large" @click="doLogin">Ingresar
+      </ion-button>
+    </div>
+
   </ion-card>
 </template>
 
 <script lang="ts" setup>
-import {
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonRippleEffect,
-} from "@ionic/vue";
-import {reactive, ref, Ref, watch} from "vue";
-import loginController, {LoginController} from "./login";
-import {Controller} from "@/Controller";
-import {injectStrict} from "@/utils/injections";
-import router from "@/router";
+import {IonCard, IonCardContent, IonCardHeader,} from "@ionic/vue";
+import {reactive, ref, Ref} from "vue";
+import {LoginController} from "@/views/login/login";
 
-const app: Controller = injectStrict("appController");
+//TODO: UNCOMMENT THIS WHEN WORKING WITH BACKEND
+//const app: Controller = injectStrict("appController");
 const loginForm: Ref<any> = ref(null);
 const logoPath: string = "../../../resources/logo.png";
 const login: LoginController = reactive(new LoginController());
@@ -43,23 +40,25 @@ const wrongCredentials: Ref<boolean> = ref(false);
 
 
 const doLogin = async () => {
-  loginForm.value.validate().then(async (success: boolean) => {
-    if (success) {
-      let succesFullLogin: boolean = false;
-      if (login.email !== null && login.password !== null) {
-        succesFullLogin = await handle(
-            app.user.doLogin({
-              email: login.email,
-              password: login.password
-            })
-        );
-      }
-      wrongCredentials.value = !succesFullLogin;
-      await router.push("/");
-    } else {
-      console.log("oh no, user has filled in at least one invalid value");
-    }
-  })
+  //TODO: UNCOMMENT THIS WHEN WORKING WITH BACKEND
+  // loginForm.value.validate().then(async (success: boolean) => {
+  //   if (success) {
+  //     let succesFullLogin: boolean = false;
+  //     if (login.email !== null && login.password !== null) {
+  //       succesFullLogin = await handle(
+  //           app.user.doLogin({
+  //             email: login.email,
+  //             password: login.password
+  //           })
+  //       );
+  //     }
+  //     wrongCredentials.value = !succesFullLogin;
+  //     await router.push("/");
+  //   } else {
+  //     console.log("oh no, user has filled in at least one invalid value");
+  //   }
+  // })
+  console.log('login pressed')
 };
 
 const handle = (promise: any) => {
@@ -90,6 +89,11 @@ const handle = (promise: any) => {
 
 .content-input {
   margin-top: 8vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
 .login-txt-container {
@@ -99,30 +103,30 @@ const handle = (promise: any) => {
   justify-content: center;
 }
 
+
 .btn-ingresar {
-  position: absolute;
-  min-width: 95%;
-  left: 1.5%;
-  background-color: rgb(24, 26, 26) !important;
-  bottom: 10%;
-  min-height: 50px;
-  color: aliceblue;
-  font-size: x-large;
   font-family: "Courier New", Courier, monospace;
   box-shadow: 0 0 30px #585757;
   border-radius: 20px !important;
+  background-color: rgb(24, 26, 26) !important;
+  max-width: 400px;
+  margin-top: 2rem;
 }
 
 .email-txt {
   background-color: rgb(24, 26, 26) !important;
   border-radius: 20px;
   min-height: 60px !important;
+  max-width: 300px;
+  color: #fdfdfd;
 }
 
 .pass-txt {
   background-color: rgb(24, 26, 26) !important;
   border-radius: 20px;
   min-height: 60px !important;
+  max-width: 300px;
+  color: #fdfdfd;
 }
 
 .logo-img {
@@ -131,7 +135,5 @@ const handle = (promise: any) => {
   object-fit: contain;
 }
 
-@media (min-width: 800px) {
 
-}
 </style>
