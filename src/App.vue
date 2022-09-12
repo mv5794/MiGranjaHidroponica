@@ -1,5 +1,5 @@
 <template>
-  <ion-app>
+  <ion-app class="ionic-app">
     <ion-router-outlet />
   </ion-app>
 </template>
@@ -16,3 +16,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+  .ionic-app{
+    background-color: rgb(0, 0, 0);
+  }
+</style>
