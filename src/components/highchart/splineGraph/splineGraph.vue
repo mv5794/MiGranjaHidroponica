@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import SplineController, {ICardTimeSeries} from "@/components/highchart/splineGraph/splineController";
 import {onMounted, watch} from "vue";
-import {defineProps} from "vue";
+import {defineProps, defineExpose} from "vue";
 
 const props = defineProps<{
   cardTimeSeries: ICardTimeSeries;
@@ -23,6 +23,10 @@ watch(
 );
 onMounted(()=> {
   m_timeSeries.createChart();
+})
+
+defineExpose({
+  m_timeSeries
 })
 </script>
 

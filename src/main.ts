@@ -36,6 +36,16 @@ const app = createApp(App)
     // @ts-ignore
     .use(HighchartsVue);
 
+// TODO: check if there is a cleanner way
+import * as IonComponents from '@ionic/vue';
+Object.keys(IonComponents).forEach(key => {
+    if (/^Ion[A-Z]\w+$/.test(key)) {
+        //@ts-ignore
+        app.component(key, IonComponents[key]);
+    }
+});
+
+
 router.isReady().then(() => {
     app.mount('#app');
 });

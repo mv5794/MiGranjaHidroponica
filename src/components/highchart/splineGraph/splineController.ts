@@ -103,7 +103,17 @@ export default class SplineController {
             credits: {
                 enabled: false
             },
-
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: { // don't display the dummy year
+                    month: '%e. %b',
+                    year: '%b'
+                },
+                title: {
+                    text: 'Date',
+                    margin: 40
+                }
+            },
 
             yAxis: {
                 reversed: false,
@@ -123,7 +133,7 @@ export default class SplineController {
             },
             tooltip: {
                 headerFormat: '<b>{series.name}</b><br>',
-                pointFormat: '{point.x:%e. %b}: {point.y:.2f}'
+                pointFormat: '{point.x:%e. %b}: {point.y:.2f} m'
             },
 
             plotOptions: {
