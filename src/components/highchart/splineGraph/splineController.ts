@@ -11,7 +11,7 @@ export interface ISeries {
 }
 
 export interface ICardTimeSeries {
-    title: string;
+    title?: string;
     series: Array<SeriesSplineOptions  | any>,
 }
 
