@@ -159,7 +159,7 @@ let chartOptions: ICardTimeSeries = reactive({
 }
 .rangeSelector {
   position: absolute;
-  top: 5vh;
+  top: 7vh;
   max-width: fit-content;
   border-radius: 20px;
 }

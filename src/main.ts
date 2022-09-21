@@ -27,6 +27,7 @@ import HighchartsVue from 'highcharts-vue'
 import './theme/variables.css';
 
 
+
 const app = createApp(App)
     .use(IonicVue, {
         animated: true,

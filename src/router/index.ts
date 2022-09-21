@@ -39,7 +39,20 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/profile',
     name:'Profile',
+    meta:{
+      visible: true,
+      icon: 'person-outline'
+    },
     component: () => import ('@/views/profile/Profile.vue')
+  },
+  {
+    path: '/stats',
+    name:'Stats',
+    meta:{
+      visible: true,
+      icon: 'person-outline'
+    },
+    component: () => import ('@/views/currentStats/Stats.vue')
   },
   {
     path: '/historic/',
@@ -48,10 +61,20 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'temperature',
+        name:'Temperatura Historico',
+        meta:{
+          visible: true,
+          icon: 'person-outline'
+        },
         component:() => import('@/views/historic/components/temperatureChart.vue')
       },
       {
         path: 'ph',
+        name:'PH Historico',
+        meta:{
+          visible: true,
+          icon: 'person-outline'
+        },
         component:() => import('@/views/historic/components/PH.vue')
       }
 
