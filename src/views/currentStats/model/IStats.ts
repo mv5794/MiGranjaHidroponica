@@ -1,7 +1,7 @@
 export interface IStats {
-  name: string;
+  sensor: string;
   value: number;
-  unity: string;
+  unity?: string;
   minValue?: number;
   maxValue?: number;
   time?: number;

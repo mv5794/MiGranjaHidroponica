@@ -48,15 +48,18 @@ export default class SplineController {
     }
 
     set m_series(value: Array<SeriesSplineOptions | any>) {
-        this._m_series = value;
-        const _length: number = this.m_chart?.series.length || 0;
-        Array.from({length: _length}).forEach(() => {
-            this.m_chart?.series[0]?.remove(true);
-        })
+        if (value.length > 0){
+            this._m_series = value;
+            const _length: number = this.m_chart?.series.length || 0;
+            Array.from({length: _length}).forEach(() => {
+                this.m_chart?.series[0]?.remove(true);
+            })
 
-        value.forEach((_series: SeriesSplineOptions) => {
-            this.m_chart?.addSeries(_series as SeriesOptionsType);
-        })
+            value.forEach((_series: SeriesSplineOptions) => {
+                this.m_chart?.addSeries(_series as SeriesOptionsType);
+            })
+        }
+
     }
 
     get m_title(): string {

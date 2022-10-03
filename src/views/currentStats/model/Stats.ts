@@ -24,28 +24,28 @@ export class StatsController {
   getFakeData(): Array<IStats> {
     return [
       {
-        name: "Temperatura",
+        sensor: "Temperatura",
         value: 38.6,
         unity: "Grados",
         minValue: 20,
         maxValue: 35,
       },
       {
-        name: "PH del agua",
+        sensor: "PH del agua",
         value: 12,
         unity: "Grados",
         minValue: 5,
         maxValue: 11,
       },
       {
-        name: "Humedad",
+        sensor: "Humedad",
         value: 87,
         unity: "Grados",
         minValue: 80,
         maxValue: 90,
       },
       {
-        name: "Temperatura agua",
+        sensor: "Temperatura agua",
         value: 19,
         unity: "Grados",
         minValue: 15,
