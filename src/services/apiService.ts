@@ -14,8 +14,9 @@ abstract class ApiService {
         this.router = useRouter();
         this._baseUrl = config.baseUrl;
         //TODO: set this with .env variables
-        this._fullBaseApiURL = this._baseUrl;
-        this.setHeader();
+        this._fullBaseApiURL = process.env.VUE_APP_BASE_URL_API+this._baseUrl;
+        //TODO:
+        //this.setHeader();
     }
 
     setHeader() {
