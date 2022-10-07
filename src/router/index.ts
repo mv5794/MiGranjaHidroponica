@@ -60,13 +60,22 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import ('@/views/historic/Historic.vue'),
     children: [
       {
-        path: 'temperature',
+        path: 'humidity',
+        name:'Humedad Historico',
+        meta:{
+          visible: true,
+          icon: 'person-outline'
+        },
+        component:() => import('@/views/historic/components/humidityChart.vue')
+      },
+      {
+        path: 'temperatures',
         name:'Temperatura Historico',
         meta:{
           visible: true,
           icon: 'person-outline'
         },
-        component:() => import('@/views/historic/components/temperatureChart.vue')
+        component:() => import('@/views/historic/components/temperatures.vue')
       },
       {
         path: 'ph',

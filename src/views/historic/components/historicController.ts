@@ -1,39 +1,136 @@
-import {ICardTimeSeries, ISeries} from "@/components/highchart/splineGraph/splineController";
-import { HistoricService } from "@/services/historic.services";
+import {
+  ICardTimeSeries,
+  ISeries,
+} from "@/components/highchart/splineGraph/splineController";
+import { HistoricService, SensorType } from "@/services/historic.services";
 import axios from "axios";
-import {reactive} from "vue";
+import { reactive } from "vue";
+import { GenericCallType } from "../../../services/historic.services";
 
 export class HistoricController {
-    private _temperatureData: ISeries | any | undefined = undefined;
-    private _temperatureSeries: ICardTimeSeries;
-    
-    private historicService: HistoricService;
+  private _humidityData: ISeries | any | undefined = undefined;
+  private _humiditySeries: ICardTimeSeries;
 
-    constructor() {
-        this._temperatureSeries = {
-            title: 'Temperature',
-            series: [{
-                data: []
-            }]
-        }
-        this.historicService = new HistoricService();
-    }
+  private _phData: ISeries | any | undefined = undefined;
+  private _phSeries: ICardTimeSeries;
 
-    async loadData() {
-        this._temperatureData = (await axios.get(process.env.VUE_APP_BASE_URL_API + '/data/historico/humedad/date/1664057282')).data;
-        console.log('chichi'+this._temperatureData);
-        this._temperatureSeries.series.at(0).data = this._temperatureData.data;
-        //TODO: REMOVE THIS
-        this._temperatureSeries.series.at(0).data.length = 15
-    }
+  private _temperatureAirData: ISeries | any | undefined = undefined;
+  private _temperatureWaterData: ISeries | any | undefined = undefined;
+  private _temperatureSeries: ICardTimeSeries;
 
-    get temperatureData(): Array<any> | undefined {
-        return this._temperatureData;
-    }
+  private historicService: HistoricService;
 
-    get temperatureSeries(): ICardTimeSeries | undefined {
-        return this._temperatureSeries;
-    }
+  constructor() {
+    this._humiditySeries = {
+      title: "Humedad",
+      series: [
+        {
+          data: [],
+        },
+      ],
+    };
+    this._phSeries = {
+      title: "PH",
+      series: [
+        {
+          data: [],
+        },
+      ],
+    };
+    this._temperatureSeries = {
+      title: "Temperatura",
+      series: [
+        {
+          data: [],
+        },
+      ],
+    };
+    this.historicService = new HistoricService();
+  }
+
+  async loadData(
+    filterType: GenericCallType,
+    firstEpochTime: number,
+    secondEpochTime?: number
+  ) {
+    await this.loadHumidity(filterType, firstEpochTime, secondEpochTime);
+    await this.loadPH(filterType, firstEpochTime, secondEpochTime);
+    await this.loadTemperature(filterType, firstEpochTime, secondEpochTime);
+  }
+
+  async loadHumidity(
+    filterType: GenericCallType,
+    epochTime: number,
+    secondEpochTime?: number
+  ) {
+    this._humidityData = await this.historicService.getSensorHistoric(
+      SensorType.Humedad,
+      filterType,
+      epochTime,
+      secondEpochTime
+    );
+    this._humiditySeries.series.at(0).data = this._humidityData.data;
+  }
+
+  async loadPH(
+    filterType: GenericCallType,
+    epochTime: number,
+    secondEpochTime?: number
+  ) {
+    this._phData = await this.historicService.getSensorHistoric(
+      SensorType.PH,
+      filterType,
+      epochTime,
+      secondEpochTime
+    );
+    this._phSeries.series.at(0).data = this._phData.data;
+  }
+
+  async loadTemperature(
+    filterType: GenericCallType,
+    epochTime: number,
+    secondEpochTime?: number
+  ) {
+    //TODO: check if this works
+
+    this._temperatureAirData = await this.historicService.getSensorHistoric(
+      SensorType.TempAire,
+      filterType,
+      epochTime,
+      secondEpochTime
+    );
+    this._temperatureWaterData = await this.historicService.getSensorHistoric(
+      SensorType.TempAgua,
+      filterType,
+      epochTime,
+      secondEpochTime
+    );
+    this._humiditySeries.series.at(0).data = this._temperatureAirData.data;
+  }
+
+  /**
+   * Getter humiditySeries
+   * @return {ICardTimeSeries}
+   */
+  public get humiditySeries(): ICardTimeSeries {
+    return this._humiditySeries;
+  }
+
+  /**
+   * Getter phSeries
+   * @return {ICardTimeSeries}
+   */
+  public get phSeries(): ICardTimeSeries {
+    return this._phSeries;
+  }
+
+  /**
+   * Getter temperatureSeries
+   * @return {ICardTimeSeries}
+   */
+  public get temperatureSeries(): ICardTimeSeries {
+    return this._temperatureSeries;
+  }
 }
 
 const historicController = reactive(new HistoricController());

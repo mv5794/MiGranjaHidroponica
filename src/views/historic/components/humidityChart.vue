@@ -2,17 +2,7 @@
   <ion-page>
     <div class="range-container">
       <ion-list class="rangeSelector">
-        <ion-item>
-          <ion-select
-              interface="action-sheet"
-              placeholder="Seleccionar rango"
-              @ionChange="selectRange($event)"
-          >
-            <ion-select-option value="apples">1 año</ion-select-option>
-            <ion-select-option value="oranges">6 mese</ion-select-option>
-            <ion-select-option value="bananas">3 meses</ion-select-option>
-          </ion-select>
-        </ion-item>
+        <!--<DatesRangeComponent />  --> 
       </ion-list>
     </div>
 
@@ -37,6 +27,8 @@ import {ICardTimeSeries} from "@/components/highchart/splineGraph/splineControll
 import SplineGraph from "@/components/highchart/splineGraph/splineGraph.vue";
 import historicController from "@/views/historic/components/historicController";
 import {ComputedVariable, ReactiveVariable} from "vue/macros";
+import DatesRangeComponent from "./datesRange.component.vue";
+import { GenericCallType } from "@/services/historic.services";
 
 // const selectRange = (e: any) => {
 //   const seriesModify: Array<Array<any>> = chartOptions.series[0].data;
@@ -48,16 +40,16 @@ import {ComputedVariable, ReactiveVariable} from "vue/macros";
 
 const graphReference = ref<InstanceType<typeof SplineGraph> | null>(null);
 
-let chartOptions: ComputedVariable<ICardTimeSeries> | any= computed(()=> historicController.temperatureSeries);
+let chartOptions: ComputedVariable<ICardTimeSeries> | any= computed(()=> historicController.humiditySeries);
 
 onMounted(async () => {
-  await historicController.loadData();
+  await historicController.loadHumidity(GenericCallType.PerHour,1665014400);
 })
 
 watch(
     chartOptions,
     () => {
-      console.log('pepito pues', chartOptions);
+      console.log('chart Options de HUmedad', chartOptions);
     },
     {deep: true, immediate: true}
 )

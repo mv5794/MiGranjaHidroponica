@@ -3,11 +3,11 @@
     <div class="card-container">
     <ion-card class="card-tmp">
       <ion-card-header>
-        <ion-card-title>Nieveles de PH</ion-card-title>
+        <ion-card-title>Temperaturas de agua y aire</ion-card-title>
       </ion-card-header>
       <ion-card-content class="card-content-chart">
 
-        <SplineGraph :card-time-series="chartOptions" ref="graphPHReference" />
+        <SplineGraph :card-time-series="chartOptions" ref="graphTemperatureReference" />
       </ion-card-content>
     </ion-card>
     </div>
@@ -24,18 +24,18 @@ import { ref, computed, onMounted, watch } from "vue";
 import { ComputedVariable } from "vue/macros";
 import historicController from "./historicController";
 
-const graphPHReference = ref<InstanceType<typeof SplineGraph> | null>(null);
+const graphTemperatureReference = ref<InstanceType<typeof SplineGraph> | null>(null);
 
-let chartOptions: ComputedVariable<ICardTimeSeries> | any= computed(()=> historicController.phSeries);
+let chartOptions: ComputedVariable<ICardTimeSeries> | any= computed(()=> historicController.temperatureSeries);
 
 onMounted(async () => {
-  await historicController.loadPH(GenericCallType.PerHour,1665014400);
+  await historicController.loadTemperature(GenericCallType.PerHour,1665014400);
 })
 
 watch(
     chartOptions,
     () => {
-      console.log('chart option de PH', chartOptions);
+      console.log('chart option de temperature', chartOptions);
     },
     {deep: true, immediate: true}
 )
