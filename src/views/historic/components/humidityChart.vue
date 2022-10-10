@@ -46,13 +46,7 @@ onMounted(async () => {
   await historicController.loadHumidity(GenericCallType.PerHour,1665014400);
 })
 
-watch(
-    chartOptions,
-    () => {
-      console.log('chart Options de HUmedad', chartOptions);
-    },
-    {deep: true, immediate: true}
-)
+
 
 </script>
 

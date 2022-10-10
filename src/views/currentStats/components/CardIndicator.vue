@@ -51,14 +51,17 @@ onMounted(() => {
   font-weight: bolder;
 }
 
-
-.card {
+.card{
   display: flex;
   height: 150px;
   width: 150px;
   background-color: #17141d;
   border-radius: 20px;
   box-shadow: -1rem 0 3rem #000;
+}
+
+@media(width >= 800px){
+  .card {
   /*   margin-left: -50px; */
   transition: 0.4s ease-out;
   position: relative;
@@ -79,5 +82,8 @@ onMounted(() => {
   left: 50px;
   transition: 0.4s ease-out;
 }
+}
+
+
 
 </style>

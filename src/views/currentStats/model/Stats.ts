@@ -1,8 +1,28 @@
 import { ICardTimeSeries } from "@/components/highchart/splineGraph/splineController";
 import { IStats } from "./IStats";
+import { reactive } from 'vue';
+import {
+  GenericCallType,
+  HistoricService,
+  SensorType,
+} from "../../../services/historic.services";
 
 export class StatsController {
   private _sensorsInformation: Array<IStats> | undefined = undefined;
+  private historicService: HistoricService;
+  private _sensorsHistoric: ICardTimeSeries;
+
+  constructor() {
+    this.historicService = new HistoricService();
+    this._sensorsHistoric = {
+      title: "Sensors",
+      series: [
+        {
+          data: [],
+        },
+      ],
+    };
+  }
 
   /**
    * Getter $sensorsInformation
@@ -12,6 +32,8 @@ export class StatsController {
     return this._sensorsInformation!;
   }
 
+
+
   /**
    * Setter $sensorsInformation
    * @param {Array<IStats> } value
@@ -20,39 +42,16 @@ export class StatsController {
     this._sensorsInformation = value;
   }
 
-  //TODO: CHANGE THIS FUNCTION
-  getFakeData(): Array<IStats> {
-    return [
-      {
-        sensor: "Temperatura",
-        value: 38.6,
-        unity: "Grados",
-        minValue: 20,
-        maxValue: 35,
-      },
-      {
-        sensor: "PH del agua",
-        value: 12,
-        unity: "Grados",
-        minValue: 5,
-        maxValue: 11,
-      },
-      {
-        sensor: "Humedad",
-        value: 87,
-        unity: "Grados",
-        minValue: 80,
-        maxValue: 90,
-      },
-      {
-        sensor: "Temperatura agua",
-        value: 19,
-        unity: "Grados",
-        minValue: 15,
-        maxValue: 50,
-      },
-    ];
-  }
+
+
+    /**
+     * Getter sensorsHistoric
+     * @return {ICardTimeSeries}
+     */
+	public get sensorsHistoric(): ICardTimeSeries {
+		return this._sensorsHistoric;
+	}
+
 
   getFakeWholeGraph() {
     return [
@@ -175,7 +174,22 @@ export class StatsController {
       },
     ];
   }
+
+  async loadData(
+    filterType: GenericCallType,
+    epochTime: number,
+    secondEpochTime?: number
+  ) {
+
+    const humidity = (await this.historicService.getSensorHistoric(SensorType.Humedad, filterType, epochTime, secondEpochTime));
+    const ph = (await this.historicService.getSensorHistoric(SensorType.PH, filterType, epochTime, secondEpochTime));
+    const tempAir = (await this.historicService.getSensorHistoric(SensorType.TempAire, filterType, epochTime, secondEpochTime));
+    const tempWater = (await this.historicService.getSensorHistoric(SensorType.TempAgua, filterType, epochTime, secondEpochTime));
+
+    this._sensorsHistoric.series = [];
+    this._sensorsHistoric.series.push(humidity, ph, tempAir, tempWater);
+  }
 }
 
-const statsController = new StatsController();
+const statsController = reactive(new StatsController());
 export default statsController;

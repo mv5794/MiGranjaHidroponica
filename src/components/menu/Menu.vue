@@ -44,15 +44,18 @@ const visibleRoutes = Router.getRoutes().filter(e => e.meta.visible);
 
 
 const showMenu = () => {
-  console.log('#dsfsfdsfdsf')
-  menuController.enable(true, "main-content")
   menuController.open("main-content")
 }
 
+const hideMenu = () => {
+  menuController.close("main-content")
+}
+
 console.log(visibleRoutes);
-const navigateToRoute=async (route: string) => {
-  Router.push(route , { replaceUrl: true });
-  await menuController.close("main-content")
+const navigateToRoute= (route: string) => {
+  menuController.close("main-content")
+  ionRouter.push(route);
+   //Router.push(route );
 }
 </script>
 
@@ -65,5 +68,8 @@ ion-menu::part(container) {
   border-radius: 0 20px 20px 0;
 
   box-shadow: 4px 0px 16px rgba(255, 0, 255, 0.18);
+}
+#main-content{
+  z-index: 9999;
 }
 </style>

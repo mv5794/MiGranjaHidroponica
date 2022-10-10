@@ -4,6 +4,7 @@ import {
 } from "@/components/highchart/splineGraph/splineController";
 import { HistoricService, SensorType } from "@/services/historic.services";
 import axios from "axios";
+import { push } from "ionicons/icons";
 import { reactive } from "vue";
 import { GenericCallType } from "../../../services/historic.services";
 
@@ -91,8 +92,6 @@ export class HistoricController {
     epochTime: number,
     secondEpochTime?: number
   ) {
-    //TODO: check if this works
-
     this._temperatureAirData = await this.historicService.getSensorHistoric(
       SensorType.TempAire,
       filterType,
@@ -105,7 +104,11 @@ export class HistoricController {
       epochTime,
       secondEpochTime
     );
-    this._humiditySeries.series.at(0).data = this._temperatureAirData.data;
+    
+
+    this._temperatureSeries.series= [];
+    this._temperatureSeries.series.push(this._temperatureWaterData, this._temperatureAirData);
+    console.log( 'assasas',this._temperatureSeries);
   }
 
   /**
