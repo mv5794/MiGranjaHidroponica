@@ -22,13 +22,13 @@
 
 <script lang="ts"  setup>
 import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonPage,} from "@ionic/vue";
-import {computed, onMounted, reactive, ref, watch} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {ICardTimeSeries} from "@/components/highchart/splineGraph/splineController";
 import SplineGraph from "@/components/highchart/splineGraph/splineGraph.vue";
 import historicController from "@/views/historic/components/historicController";
-import {ComputedVariable, ReactiveVariable} from "vue/macros";
-import DatesRangeComponent from "./datesRange.component.vue";
+import {ComputedVariable} from "vue/macros";
 import { GenericCallType } from "@/services/historic.services";
+import { getCurrentEpochTime } from '../../../utils/dates';
 
 // const selectRange = (e: any) => {
 //   const seriesModify: Array<Array<any>> = chartOptions.series[0].data;
@@ -43,7 +43,7 @@ const graphReference = ref<InstanceType<typeof SplineGraph> | null>(null);
 let chartOptions: ComputedVariable<ICardTimeSeries> | any= computed(()=> historicController.humiditySeries);
 
 onMounted(async () => {
-  await historicController.loadHumidity(GenericCallType.PerHour,1665014400);
+  await historicController.loadHumidity(GenericCallType.PerHour,1665014400, getCurrentEpochTime());
 })
 
 

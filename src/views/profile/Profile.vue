@@ -30,15 +30,11 @@ import {
   IonCol,
   IonGrid,
   IonButton,
-  IonInput,
   IonRow,
-  IonLabel,
-  IonItem,
   IonImg,
   toastController,
 } from "@ionic/vue";
 import ChangePasswordTelport from "./components/ChangePasswordTelport.vue";
-import ChangePasswordTelport1 from "./components/ChangePasswordTelport.vue";
 
 const open = ref(false);
 const profileImage =

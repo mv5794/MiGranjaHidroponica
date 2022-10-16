@@ -23,13 +23,14 @@ import { GenericCallType } from "@/services/historic.services";
 import { ref, computed, onMounted, watch } from "vue";
 import { ComputedVariable } from "vue/macros";
 import historicController from "./historicController";
+import { getCurrentEpochTime } from '../../../utils/dates';
 
 const graphPHReference = ref<InstanceType<typeof SplineGraph> | null>(null);
 
 let chartOptions: ComputedVariable<ICardTimeSeries> | any= computed(()=> historicController.phSeries);
 
 onMounted(async () => {
-  await historicController.loadPH(GenericCallType.PerHour,1665014400);
+  await historicController.loadPH(GenericCallType.PerHour,1665014400, getCurrentEpochTime());
 })
 
 watch(

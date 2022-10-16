@@ -3,8 +3,6 @@ import {
   ISeries,
 } from "@/components/highchart/splineGraph/splineController";
 import { HistoricService, SensorType } from "@/services/historic.services";
-import axios from "axios";
-import { push } from "ionicons/icons";
 import { reactive } from "vue";
 import { GenericCallType } from "../../../services/historic.services";
 

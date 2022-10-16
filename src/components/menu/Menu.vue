@@ -37,8 +37,7 @@ import {
   IonToolbar, menuController, useIonRouter
 } from '@ionic/vue';
 import Router from "@/router";
-import router from "@/router";
-import { onMounted } from 'vue';
+
 const ionRouter = useIonRouter();
 const visibleRoutes = Router.getRoutes().filter(e => e.meta.visible);
 
@@ -47,9 +46,7 @@ const showMenu = () => {
   menuController.open("main-content")
 }
 
-const hideMenu = () => {
-  menuController.close("main-content")
-}
+
 
 console.log(visibleRoutes);
 const navigateToRoute= (route: string) => {

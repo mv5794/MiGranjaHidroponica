@@ -28,7 +28,7 @@ export class StatsController {
    * Getter $sensorsInformation
    * @return {Array<IStats> }
    */
-  public get sensorsInformation(): Array<IStats> {
+  public get sensorsInformation(): Array<IStats>  {
     return this._sensorsInformation!;
   }
 

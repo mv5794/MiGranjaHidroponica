@@ -9,7 +9,7 @@
         </ion-tab-button>
 
         <ion-tab-button tab="tab2" href="/tabs/tab2">
-          <ion-icon :icon="ellipse" />
+          <ion-icon :icon="thermometer" />
           <ion-label>Tab 2</ion-label>
         </ion-tab-button>
 
@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import {ellipse, square, thermometer, triangle} from 'ionicons/icons';
+import { square, thermometer, triangle} from 'ionicons/icons';
 
 export default defineComponent({
   name: 'TabsPage',

@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import { IonPage } from "@ionic/vue";
-import { onMounted, reactive, ref, watch, computed } from 'vue';
+import { onMounted, reactive, ref, computed } from 'vue';
 import statsController from "./model/Stats";
 import CardIndicator from "./components/CardIndicator.vue";
 import { ICardTimeSeries } from "@/components/highchart/splineGraph/splineController";
@@ -28,6 +28,7 @@ import SplineGraph from "@/components/highchart/splineGraph/splineGraph.vue";
 import { IStats } from "@/views/currentStats/model/IStats";
 import { ComputedVariable, ReactiveVariable } from "vue/macros";
 import { GenericCallType } from "@/services/historic.services";
+import { getCurrentEpochTime } from '../../utils/dates';
 
 
 const historicWholeData:ComputedVariable<ICardTimeSeries> | any = computed(()=> statsController.sensorsHistoric)
@@ -72,7 +73,8 @@ tmpAguaSocket.addEventListener("message", function (event) {
 });
 
 onMounted(async ()=> {
-  await statsController.loadData(GenericCallType.PerHour,1665014400);
+  console.log(getCurrentEpochTime())
+  await statsController.loadData(GenericCallType.PerHour,1665014400,getCurrentEpochTime());
 })
 </script>
 

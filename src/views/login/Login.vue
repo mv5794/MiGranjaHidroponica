@@ -28,15 +28,15 @@
 
 <script lang="ts" setup>
 import {IonCard, IonCardContent, IonCardHeader,} from "@ionic/vue";
-import {reactive, ref, Ref} from "vue";
+import {reactive} from "vue";
 import {LoginController} from "@/views/login/login";
 
 //TODO: UNCOMMENT THIS WHEN WORKING WITH BACKEND
 //const app: Controller = injectStrict("appController");
-const loginForm: Ref<any> = ref(null);
-const logoPath: string = "../../../resources/logo.png";
+//TODO: const loginForm: Ref<any> = ref(null);
+//TODO:  const logoPath: string = "../../../resources/logo.png";
 const login: LoginController = reactive(new LoginController());
-const wrongCredentials: Ref<boolean> = ref(false);
+//TODO: const wrongCredentials: Ref<boolean> = ref(false);
 
 
 const doLogin = async () => {
@@ -61,14 +61,14 @@ const doLogin = async () => {
   console.log('login pressed')
 };
 
-const handle = (promise: any) => {
+/* TODO: const handle = (promise: any) => {
   return promise
       .then((data: any) => [data, undefined])
       .catch((error: any) => {
         Promise.resolve([undefined, error]);
         wrongCredentials.value = true;
       });
-}
+}*/
 
 
 </script>

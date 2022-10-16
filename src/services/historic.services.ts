@@ -22,12 +22,12 @@ export class HistoricService extends ApiService {
   async getSensorHistoric(sensorName: SensorType,filterType: GenericCallType,firstEpochTime: number ,secondEpochTime?: number){
       switch(filterType){
         case 0: 
-        return (await this.getGenericHistoricPerSecond(sensorName,firstEpochTime, secondEpochTime!)).data;
+        return (await this.getGenericHistoricPerSecond(sensorName,firstEpochTime, secondEpochTime)).data;
         case 1: 
-        return (await this.getGenericPromPerMinuteBetweenTwoDates(firstEpochTime,secondEpochTime!, sensorName)).data;
+        return (await this.getGenericPromPerMinuteBetweenTwoDates(firstEpochTime, sensorName, secondEpochTime)).data;
         case 2: 
         default:
-        return (await this.getGenericHistoricPerDay(sensorName, firstEpochTime)).data
+        return (await this.getGenericHistoricPerDay(sensorName, firstEpochTime, secondEpochTime!)).data
 
       }
   }
@@ -36,15 +36,16 @@ export class HistoricService extends ApiService {
   //NOTE: not sure if do this
   private async getGenericHistoricPerDay(
     sensorPath: string,
-    epochTime: number
+    epochTime: number,
+    secondEpochTime: number
   ) {
-    return await this.get('/horas'+sensorPath + "/date/" + epochTime);
+    return await this.get('/horas'+sensorPath + "/mindate/" + epochTime + '/maxdate/' + secondEpochTime);
   }
 
   private async getGenericPromPerMinuteBetweenTwoDates(
     firstEpochTime: number,
-    secondEpochTime: number,
-    sensorPath: string
+    sensorPath: string,
+    secondEpochTime?: number,
   ) {
     return await this.get(
       "/minutos" +

@@ -23,8 +23,8 @@ const props = defineProps<{
 onMounted(() => {
   if (props.cardDetail.maxValue && props.cardDetail.minValue) {
     if (
-        props.cardDetail.value >= props.cardDetail.minValue! &&
-        props.cardDetail.value <= props.cardDetail.maxValue!
+        props.cardDetail.value >= props.cardDetail.minValue &&
+        props.cardDetail.value <= props.cardDetail.maxValue
     ) {
       color.value = "green";
     } else {
