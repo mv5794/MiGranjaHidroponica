@@ -1,20 +1,27 @@
 <template>
-  <ion-grid>
-    <ion-row class="first-row">
-      <ion-col> </ion-col>
-    </ion-row>
-    <ion-img class="profile-img" :src="profileImage"></ion-img>
-    <div>
-      <ion-col class="actions-row">
-        <ion-button color="warning" @click="openModal">Cambiar contraseña</ion-button>
-        <Teleport to="body">
-          <div v-if="open" class="modal">
-          <ChangePasswordTelport  @change-pasword="changePasword"  @cancel-option="cancelOption" />
-          </div>
-        </Teleport>
-      </ion-col>
-    </div>
-  </ion-grid>
+  <ion-page>
+    <ion-grid>
+      <ion-row class="first-row">
+        <ion-col> </ion-col>
+      </ion-row>
+      <ion-img class="profile-img" :src="profileImage"></ion-img>
+      <div>
+        <ion-col class="actions-row">
+          <ion-button color="warning" @click="openModal"
+            >Cambiar contraseña</ion-button
+          >
+          <Teleport to="body">
+            <div v-if="open" class="modal">
+              <ChangePasswordTelport
+                @change-pasword="changePasword"
+                @cancel-option="cancelOption"
+              />
+            </div>
+          </Teleport>
+        </ion-col>
+      </div>
+    </ion-grid>
+  </ion-page>
 </template>
 
 <script lang="ts" setup>
@@ -23,17 +30,11 @@ import {
   IonCol,
   IonGrid,
   IonButton,
-  IonInput,
   IonRow,
-  IonLabel,
-  IonItem,
   IonImg,
   toastController,
 } from "@ionic/vue";
 import ChangePasswordTelport from "./components/ChangePasswordTelport.vue";
-import ChangePasswordTelport1 from "./components/ChangePasswordTelport.vue";
-
-
 
 const open = ref(false);
 const profileImage =
@@ -41,7 +42,7 @@ const profileImage =
 
 const cancelOption = () => {
   open.value = false;
-}
+};
 const openModal = () => {
   console.log("pepe");
   open.value = true;
@@ -50,20 +51,17 @@ const openModal = () => {
 const newPassword: Ref<string> = ref("");
 
 const changePasword = async (newPass: string) => {
-  console.log('PEP8888ITOO', newPass);
+  console.log("PEP8888ITOO", newPass);
   //TODO: implement profile controller
   console.log("New password is :", newPassword.value);
   const toast = await toastController.create({
     message: "Contraseña cambiada correctamente",
     duration: 1500,
-    color: 'success'
+    color: "success",
   });
   await toast.present();
   open.value = false;
 };
-
-
-
 </script>
 
 <style scoped>
@@ -72,6 +70,7 @@ const changePasword = async (newPass: string) => {
   background-color: rgb(28, 31, 31);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  min-width: 100vw;
 }
 
 .profile-img {

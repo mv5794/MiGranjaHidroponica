@@ -3,10 +3,11 @@ import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
 import Login from "@/views/login/Login.vue";
 
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/stats'
   },
   {
     path: '/tabs/',
@@ -38,7 +39,55 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/profile',
     name:'Profile',
+    meta:{
+      visible: true,
+      icon: 'person-outline'
+    },
     component: () => import ('@/views/profile/Profile.vue')
+  },
+  {
+    path: '/stats',
+    name:'Stats',
+    meta:{
+      visible: true,
+      icon: 'person-outline'
+    },
+    component: () => import ('@/views/currentStats/Stats.vue')
+  },
+  {
+    path: '/historic/',
+    name:'Historic',
+    component: () => import ('@/views/historic/Historic.vue'),
+    children: [
+      {
+        path: 'humidity',
+        name:'Humedad Historico',
+        meta:{
+          visible: true,
+          icon: 'person-outline'
+        },
+        component:() => import('@/views/historic/components/humidityChart.vue')
+      },
+      {
+        path: 'temperatures',
+        name:'Temperatura Historico',
+        meta:{
+          visible: true,
+          icon: 'person-outline'
+        },
+        component:() => import('@/views/historic/components/temperatures.vue')
+      },
+      {
+        path: 'ph',
+        name:'PH Historico',
+        meta:{
+          visible: true,
+          icon: 'person-outline'
+        },
+        component:() => import('@/views/historic/components/PH.vue')
+      }
+
+    ]
   }
 ]
 

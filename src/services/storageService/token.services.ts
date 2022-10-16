@@ -1,7 +1,7 @@
 import {reactive} from "vue";
 
 const TOKEN_KEY = 'access_token'
-const REFRESH_TOKEN_KEY = 'refresh_token'
+//const REFRESH_TOKEN_KEY = 'refresh_token'
 
 /**
  * Manage the how Access Tokens are being stored and retreived from storage.

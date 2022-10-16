@@ -51,6 +51,8 @@ node_modules/
 tmp/
 temp/
 
+.env
+
 # Preprocessors cache files
 .sourcemaps/
 .sass-cache/
