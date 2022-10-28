@@ -1,4 +1,5 @@
 <template>
+  <ion-page>
   <ion-card class="card-login">
     <ion-card-header>
       <div class="login-txt-container">
@@ -24,6 +25,7 @@
     </div>
 
   </ion-card>
+  </ion-page>
 </template>
 
 <script lang="ts" setup>
