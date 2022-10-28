@@ -29,10 +29,10 @@ import './theme/variables.css';
 
 
 const app = createApp(App)
-    .use(IonicVue, {
+    .use(IonicVue/*, {
         animated: true,
         navAnimation: 'ease-in-out'
-    })
+    }*/)
     .use(router)
     // @ts-ignore
     .use(HighchartsVue);

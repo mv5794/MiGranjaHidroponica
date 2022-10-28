@@ -1,12 +1,22 @@
 <template>
   <ion-app class="ionic-app">
-    <Menu />
-    <ion-router-outlet />
+
+  <ion-header>
+
+
+  </ion-header>
+
+  <ion-content class="ion-padding">
+
+      <ion-router-outlet />
+  </ion-content>
+
+
   </ion-app>
 </template>
 
 <script lang="ts">
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
+import {IonApp, IonRouterOutlet} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import Menu from "@/components/menu/Menu.vue";
 

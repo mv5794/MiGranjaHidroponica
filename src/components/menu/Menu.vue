@@ -7,8 +7,7 @@
     </ion-header>
     <ion-content class="ion-padding">
       <ion-list>
-        <ion-item  v-for="route in visibleRoutes" :key="route.path" @click="navigateToRoute(route.path)">
-          <ion-icon :icon="route.meta.icon" />
+        <ion-item  v-for="route in routes" :key="route.path"  @click="navigateToRoute(route.path)" >
           <ion-label>{{route.name}}</ion-label>
         </ion-item>
       </ion-list>
@@ -31,6 +30,8 @@ import {
   IonContent,
   IonHeader,
   IonMenu,
+    IonList,
+    IonItem,
   IonMenuButton,
   IonPage,
   IonTitle,
@@ -38,8 +39,9 @@ import {
 } from '@ionic/vue';
 import Router from "@/router";
 
+
 const ionRouter = useIonRouter();
-const visibleRoutes = Router.getRoutes().filter(e => e.meta.visible);
+// const visibleRoutes = Router.getRoutes().filter(e => e.meta.visible);
 
 
 const showMenu = () => {
@@ -47,8 +49,9 @@ const showMenu = () => {
 }
 
 
+const routes = [{name: 'Historics', path:'/historic/ph'}, {name: 'Profile', path: '/profile'}, {name: 'Stats', path: '/stats'}]
 
-console.log(visibleRoutes);
+// console.log(visibleRoutes);
 const navigateToRoute= (route: string) => {
   menuController.close("main-content")
   ionRouter.push(route);
