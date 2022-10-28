@@ -19,7 +19,7 @@
     <!--      <ion-ripple-effect></ion-ripple-effect>-->
     <!--    </button>-->
     <div style="display: flex; justify-content: center">
-      <ion-button color="warning" class="btn-ingresar" expand="block" size="large" @click="doLogin">Ingresar
+      <ion-button color="warning" class="btn-ingresar" router-link="/stats" expand="block" size="large" @click="doLogin">Ingresar
       </ion-button>
     </div>
 
@@ -27,9 +27,10 @@
 </template>
 
 <script lang="ts" setup>
-import {IonCard, IonCardContent, IonCardHeader,} from "@ionic/vue";
+import {IonCard, IonCardContent, IonCardHeader, toastController, useIonRouter,} from "@ionic/vue";
 import {reactive} from "vue";
 import {LoginController} from "@/views/login/login";
+import {useRouter} from "vue-router";
 
 //TODO: UNCOMMENT THIS WHEN WORKING WITH BACKEND
 //const app: Controller = injectStrict("appController");
@@ -40,6 +41,14 @@ const login: LoginController = reactive(new LoginController());
 
 
 const doLogin = async () => {
+
+  const toast = await toastController.create({
+    message: "Login succesfully",
+    duration: 1500,
+    color: "success",
+  });
+  await toast.present();
+  await useRouter().push('/stats')
   //TODO: UNCOMMENT THIS WHEN WORKING WITH BACKEND
   // loginForm.value.validate().then(async (success: boolean) => {
   //   if (success) {
